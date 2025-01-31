@@ -34,7 +34,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="flex items-center justify-between bg-gray-800 text-white p-4">
+    <nav className="flex items-center justify-between bg-gray-800 text-white p-4 fixed w-full top-0 z-50">
       {/* Logo */}
       <div className="flex items-center">
         <Link to="/">
@@ -56,13 +56,18 @@ const Navbar = () => {
       </div>
 
       {/* Middle Links */}
-      <div className={`${isMenuOpen ? "flex" : "hidden"} lg:flex flex-grow justify-center`}>
+      <div
+        className={`${
+          isMenuOpen ? "flex" : "hidden"
+        } lg:flex flex-grow justify-center lg:static absolute lg:bg-transparent bg-gray-800 lg:shadow-none shadow-lg top-16 left-0 right-0 p-4 lg:p-0`}
+      >
         <ul className="flex flex-col lg:flex-row gap-4 lg:gap-8">
           {navbarItems.map((item) => (
             <li key={item.name}>
               <Link
                 to={item.href}
                 className="text-white hover:underline hover:text-gray-400 transition duration-300 ease-in-out"
+                onClick={() => setIsMenuOpen(false)} // Close menu on click
               >
                 {item.name}
               </Link>
@@ -87,7 +92,10 @@ const Navbar = () => {
         <div className="relative">
           {currentUser ? (
             <>
-              <button onClick={() => setIsDropdownOpen(!isDropdownOpen)} className="flex items-center">
+              <button
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                className="flex items-center"
+              >
                 <div className="w-8 h-8 flex items-center justify-center rounded-full bg-yellow-500 text-gray-900 font-bold text-sm">
                   {getInitials(currentUser.email)}
                 </div>
@@ -98,12 +106,19 @@ const Navbar = () => {
                 <div className="absolute right-0 mt-2 w-48 bg-neutral-500 bg-opacity-75 shadow-lg rounded-md z-40">
                   <ul className="py-2">
                     <li>
-                      <Link to="/profile" className="block px-4 py-2 text-sm text-white hover:bg-gray-700">
+                      <Link
+                        to="/profile"
+                        className="block px-4 py-2 text-sm text-white hover:bg-gray-700"
+                        onClick={() => setIsDropdownOpen(false)} // Close dropdown on click
+                      >
                         Profile
                       </Link>
                     </li>
                     <li>
-                      <button className="block px-4 py-2 text-sm text-white hover:bg-gray-700 w-full text-left" onClick={handleLogOut}>
+                      <button
+                        className="block px-4 py-2 text-sm text-white hover:bg-gray-700 w-full text-left"
+                        onClick={handleLogOut}
+                      >
                         Logout
                       </button>
                     </li>
@@ -113,12 +128,14 @@ const Navbar = () => {
             </>
           ) : (
             <div className="flex flex-col md:flex-row items-center space-x-0 md:space-x-2 space-y-2 md:space-y-0">
-              <Link to="/signin" className="flex items-center space-x-1 text-white hover:text-gray-600 transition">
+              <Link
+                to="/signin"
+                className="flex items-center space-x-1 text-white hover:text-gray-600 transition"
+              >
                 <HiOutlineUser className="size-6" />
                 <span className="text-sm md:text-base font-medium">Login</span>
               </Link>
             </div>
-
           )}
         </div>
       </div>
