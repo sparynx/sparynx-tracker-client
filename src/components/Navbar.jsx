@@ -30,6 +30,7 @@ const Navbar = () => {
     console.log("Logging out...");
     logOut();
     setIsDropdownOpen(false);
+    setIsMenuOpen(false); // Close mobile menu on logout
     navigate("/"); // Redirect to Home
   };
 
@@ -83,6 +84,24 @@ const Navbar = () => {
             </li>
           ))}
         </ul>
+
+        {/* User Initials and Logout Button in Mobile Sidebar */}
+        {currentUser && (
+          <div className="mt-8">
+            <div className="flex items-center space-x-2">
+              <div className="w-8 h-8 flex items-center justify-center rounded-full bg-yellow-500 text-gray-900 font-bold text-sm">
+                {getInitials(currentUser.email)}
+              </div>
+              <span className="text-white">{currentUser.email}</span>
+            </div>
+            <button
+              className="mt-4 w-full text-left text-white hover:underline hover:text-gray-400 transition duration-300 ease-in-out"
+              onClick={handleLogOut}
+            >
+              Logout
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Search Bar and Profile */}
