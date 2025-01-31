@@ -1,0 +1,21 @@
+
+.loader {
+  border: 2px solid rgba(25, 12, 100, 0.3); /* Light red border */
+  border-top: 2px solid rgb(25, 10, 105); /* Red border on top */
+  border-radius: 50%; /* Make it a circle */
+  width: 40px; /* Width of the loader */
+  height: 40px; /* Height of the loader */
+  animation: spin 1s linear infinite; /* Animation to rotate the loader */
+}
+
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
