@@ -45,21 +45,30 @@ const Navbar = () => {
         </Link>
       </div>
 
-      {/* Mobile Menu Button */}
-      <div className="lg:hidden">
+      {/* Mobile Menu Button and Login Icon */}
+      <div className="lg:hidden flex items-center space-x-4">
+        {/* Hamburger Menu Button */}
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           className="w-8 h-8 flex items-center justify-center"
         >
           {isMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
         </button>
+
+        {/* Login Icon */}
+        {!currentUser && (
+          <Link to="/signin" className="flex items-center space-x-1 text-white hover:text-gray-600 transition">
+            <HiOutlineUser className="size-6" />
+            <span className="text-sm font-medium">Login</span>
+          </Link>
+        )}
       </div>
 
       {/* Middle Links */}
       <div
         className={`${
-          isMenuOpen ? "flex" : "hidden"
-        } lg:flex flex-grow justify-center lg:static absolute lg:bg-transparent bg-gray-800 lg:shadow-none shadow-lg top-16 left-0 right-0 p-4 lg:p-0`}
+          isMenuOpen ? "translate-x-0" : "-translate-x-full"
+        } lg:translate-x-0 lg:flex flex-grow justify-center lg:static fixed lg:bg-transparent bg-gray-800 lg:shadow-none shadow-lg top-16 left-0 right-0 bottom-0 lg:bottom-auto lg:w-auto w-64 p-4 lg:p-0 transition-transform duration-300 ease-in-out`}
       >
         <ul className="flex flex-col lg:flex-row gap-4 lg:gap-8">
           {navbarItems.map((item) => (
@@ -77,9 +86,9 @@ const Navbar = () => {
       </div>
 
       {/* Search Bar and Profile */}
-      <div className="flex items-center space-x-4">
-        {/* Search Bar - Hidden on small screens */}
-        <div className="hidden lg:flex flex-row items-center bg-gray-700 rounded-lg p-1 border-none">
+      <div className="hidden lg:flex items-center space-x-4">
+        {/* Search Bar */}
+        <div className="flex flex-row items-center bg-gray-700 rounded-lg p-1 border-none">
           <IoMdSearch size={20} />
           <input
             type="text"
@@ -127,15 +136,13 @@ const Navbar = () => {
               )}
             </>
           ) : (
-            <div className="flex flex-col md:flex-row items-center space-x-0 md:space-x-2 space-y-2 md:space-y-0">
-              <Link
-                to="/signin"
-                className="flex items-center space-x-1 text-white hover:text-gray-600 transition"
-              >
-                <HiOutlineUser className="size-6" />
-                <span className="text-sm md:text-base font-medium">Login</span>
-              </Link>
-            </div>
+            <Link
+              to="/signin"
+              className="flex items-center space-x-1 text-white hover:text-gray-600 transition"
+            >
+              <HiOutlineUser className="size-6" />
+              <span className="text-sm font-medium">Login</span>
+            </Link>
           )}
         </div>
       </div>

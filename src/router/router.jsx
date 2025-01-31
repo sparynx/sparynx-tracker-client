@@ -25,7 +25,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/dashboard",
-                element: <DashBoard/>
+                element: <ProtectedRoute><DashBoard/></ProtectedRoute>
             },
             {
                 path: "/signin",
@@ -37,15 +37,15 @@ const router = createBrowserRouter([
             },
             {
                 path: "/newbudgets",
-                element: <CreateNewBudget/>
+                element: <ProtectedRoute><CreateNewBudget/></ProtectedRoute>
             },
             {
                 path: "/budget/:id",
-                element: <SingleBudget/>
+                element: <ProtectedRoute><SingleBudget/></ProtectedRoute>
             },
             {
                 path: "/edit-budget/:id",
-                element:<EditBudget/>
+                element:<ProtectedRoute><EditBudget/></ProtectedRoute>
             },
             {
                 path: "/contact",
