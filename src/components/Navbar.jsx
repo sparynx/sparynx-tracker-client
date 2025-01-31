@@ -46,7 +46,7 @@ const Navbar = () => {
         </Link>
       </div>
 
-      {/* Mobile Menu Button and Login Icon */}
+      {/* Mobile Menu Button and User Icon */}
       <div className="lg:hidden flex items-center space-x-4">
         {/* Hamburger Menu Button */}
         <button
@@ -56,8 +56,12 @@ const Navbar = () => {
           {isMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
         </button>
 
-        {/* Login Icon */}
-        {!currentUser && (
+        {/* User Icon (Initials or Login) */}
+        {currentUser ? (
+          <div className="w-8 h-8 flex items-center justify-center rounded-full bg-yellow-500 text-gray-900 font-bold text-sm">
+            {getInitials(currentUser.email)}
+          </div>
+        ) : (
           <Link to="/signin" className="flex items-center space-x-1 text-white hover:text-gray-600 transition">
             <HiOutlineUser className="size-6" />
             <span className="text-sm font-medium">Login</span>
@@ -85,26 +89,18 @@ const Navbar = () => {
           ))}
         </ul>
 
-        {/* User Initials and Logout Button in Mobile Sidebar */}
+        {/* Logout Button in Mobile Sidebar */}
         {currentUser && (
-          <div className="mt-8">
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 flex items-center justify-center rounded-full bg-yellow-500 text-gray-900 font-bold text-sm">
-                {getInitials(currentUser.email)}
-              </div>
-              <span className="text-white">{currentUser.email}</span>
-            </div>
-            <button
-              className="mt-4 w-full text-left text-white hover:underline hover:text-gray-400 transition duration-300 ease-in-out"
-              onClick={handleLogOut}
-            >
-              Logout
-            </button>
-          </div>
+          <button
+            className="mt-4 w-full text-left text-white hover:underline hover:text-gray-400 transition duration-300 ease-in-out"
+            onClick={handleLogOut}
+          >
+            Logout
+          </button>
         )}
       </div>
 
-      {/* Search Bar and Profile */}
+      {/* Search Bar and Profile (Desktop) */}
       <div className="hidden lg:flex items-center space-x-4">
         {/* Search Bar */}
         <div className="flex flex-row items-center bg-gray-700 rounded-lg p-1 border-none">
