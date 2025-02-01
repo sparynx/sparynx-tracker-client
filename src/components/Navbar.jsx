@@ -44,10 +44,10 @@ const Navbar = () => {
         </Link>
       </div>
 
-      {/* Mobile Menu Button */}
+      {/* Mobile Menu Button (Only Bars, No Times Icon Here) */}
       <div className="lg:hidden flex items-center space-x-4">
-        <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="w-8 h-8 flex items-center justify-center">
-          {isMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
+        <button onClick={() => setIsMenuOpen(true)} className="w-8 h-8 flex items-center justify-center">
+          <FaBars size={24} />
         </button>
       </div>
 
@@ -126,9 +126,11 @@ const Navbar = () => {
       {/* Mobile Sidebar */}
       {isMenuOpen && (
         <div className="lg:hidden fixed top-0 left-0 w-64 h-full bg-gray-800 p-6 z-50 flex flex-col shadow-lg">
+          {/* Close Button Inside Sidebar */}
           <button onClick={() => setIsMenuOpen(false)} className="self-end text-white mb-4">
             <FaTimes size={24} />
           </button>
+
           <ul className="space-y-4">
             {navbarItems.map((item) => (
               <li key={item.name}>
@@ -138,6 +140,7 @@ const Navbar = () => {
               </li>
             ))}
           </ul>
+
           {currentUser && (
             <button
               className="mt-4 w-full text-left text-white hover:underline hover:text-gray-400"
