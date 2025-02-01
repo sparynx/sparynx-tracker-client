@@ -15,23 +15,21 @@ const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
-  const { currentUser, logOut } = useAuth(); // Get the current user from Firebase Auth
+  const { currentUser, logOut } = useAuth();
 
   // Function to extract initials from email
   const getInitials = (email) => {
     if (!email) return "";
-    const namePart = email.split("@")[0]; // Get the part before "@"
-    const words = namePart.split(/[.\-_]/); // Split by dot, hyphen, or underscore
-    return words.map((word) => word.charAt(0).toUpperCase()).join(""); // Extract initials
+    const namePart = email.split("@")[0]; 
+    const words = namePart.split(/[.\-_]/); 
+    return words.map((word) => word.charAt(0).toUpperCase()).join(""); 
   };
 
   const handleLogOut = () => {
-    // Handle logout
-    console.log("Logging out...");
     logOut();
     setIsDropdownOpen(false);
-    setIsMenuOpen(false); // Close mobile menu on logout
-    navigate("/"); // Redirect to Home
+    setIsMenuOpen(false);
+    navigate("/");
   };
 
   return (
@@ -46,42 +44,25 @@ const Navbar = () => {
         </Link>
       </div>
 
-      {/* Mobile Menu Button and User Icon */}
+      {/* Mobile Menu Button */}
       <div className="lg:hidden flex items-center space-x-4">
-        {/* Hamburger Menu Button */}
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           className="w-8 h-8 flex items-center justify-center"
         >
           {isMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
         </button>
-
-        {/* User Icon (Initials or Login) */}
-        {currentUser ? (
-          <div className="w-8 h-8 flex items-center justify-center rounded-full bg-yellow-500 text-gray-900 font-bold text-sm">
-            {getInitials(currentUser.email)}
-          </div>
-        ) : (
-          <Link to="/signin" className="flex items-center space-x-1 text-white hover:text-gray-600 transition">
-            <HiOutlineUser className="size-6" />
-            <span className="text-sm font-medium">Login</span>
-          </Link>
-        )}
       </div>
 
-      {/* Middle Links */}
-      <div
-        className={`${
-          isMenuOpen ? "translate-x-0" : "-translate-x-full"
-        } lg:translate-x-0 lg:flex flex-grow justify-center lg:static fixed lg:bg-transparent bg-gray-800 lg:shadow-none shadow-lg top-16 left-0 right-0 bottom-0 lg:bottom-auto lg:w-auto w-64 p-4 lg:p-0 transition-transform duration-300 ease-in-out`}
-      >
-        <ul className="flex flex-col lg:flex-row gap-4 lg:gap-8 whitespace-nowrap">
+      {/* Middle Links (Desktop) */}
+      <div className={`lg:flex flex-1 justify-center ${isMenuOpen ? "flex" : "hidden"} flex-col lg:flex-row lg:static fixed bg-gray-800 lg:bg-transparent w-full lg:w-auto p-4 lg:p-0`}>
+        <ul className="flex flex-col lg:flex-row gap-4 lg:gap-8">
           {navbarItems.map((item) => (
             <li key={item.name}>
               <Link
                 to={item.href}
                 className="text-white hover:underline hover:text-gray-400 transition duration-300 ease-in-out"
-                onClick={() => setIsMenuOpen(false)} // Close menu on click
+                onClick={() => setIsMenuOpen(false)} 
               >
                 {item.name}
               </Link>
@@ -89,10 +70,10 @@ const Navbar = () => {
           ))}
         </ul>
 
-        {/* Logout Button in Mobile Sidebar */}
+        {/* Logout Button in Mobile Menu */}
         {currentUser && (
           <button
-            className="mt-4 w-full text-left text-white hover:underline hover:text-gray-400 transition duration-300 ease-in-out"
+            className="mt-4 lg:hidden w-full text-left text-white hover:underline hover:text-gray-400 transition duration-300 ease-in-out"
             onClick={handleLogOut}
           >
             Logout
@@ -133,7 +114,7 @@ const Navbar = () => {
                       <Link
                         to="/profile"
                         className="block px-4 py-2 text-sm text-white hover:bg-gray-700"
-                        onClick={() => setIsDropdownOpen(false)} // Close dropdown on click
+                        onClick={() => setIsDropdownOpen(false)} 
                       >
                         Profile
                       </Link>
