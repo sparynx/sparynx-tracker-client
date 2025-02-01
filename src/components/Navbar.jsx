@@ -75,7 +75,7 @@ const Navbar = () => {
           isMenuOpen ? "translate-x-0" : "-translate-x-full"
         } lg:translate-x-0 lg:flex flex-grow justify-center lg:static fixed lg:bg-transparent bg-gray-800 lg:shadow-none shadow-lg top-16 left-0 right-0 bottom-0 lg:bottom-auto lg:w-auto w-64 p-4 lg:p-0 transition-transform duration-300 ease-in-out`}
       >
-        <ul className="flex flex-col lg:flex-row gap-4 lg:gap-8">
+        <ul className="flex flex-col lg:flex-row gap-4 lg:gap-8 whitespace-nowrap">
           {navbarItems.map((item) => (
             <li key={item.name}>
               <Link
