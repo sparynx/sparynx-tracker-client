@@ -42,7 +42,7 @@ const CreateNewBudget = () => {
       await addBudget(budgetData).unwrap();
   
       // Send email notification to user
-      await axios.post("http://localhost:5000/send-email", {
+      await axios.post("https://sparynx-tracker-server-2.onrender.com/send-email", {
         email: currentUser.email,
         budgetName: budgetData.name,
         amount: budgetData.amount,
