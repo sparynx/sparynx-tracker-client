@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import axios from "axios";
 import Swal from "sweetalert2";
 import { useAddBudgetMutation } from "../redux/features/budgetsApi";
 import { useAuth } from "../context/AuthContext";
@@ -18,6 +19,8 @@ const CreateNewBudget = () => {
     formState: { errors },
   } = useForm();
 
+ 
+
   const onSubmit = async (data) => {
     if (!currentUser) {
       Swal.fire({
@@ -27,22 +30,31 @@ const CreateNewBudget = () => {
       });
       return;
     }
-
+  
     try {
       const budgetData = {
         ...data,
         userId: currentUser.uid,
         createdAt: new Date().toISOString(),
       };
-
+  
+      // Save budget to the database
       await addBudget(budgetData).unwrap();
-
+  
+      // Send email notification to user
+      await axios.post("http://localhost:5000/send-email", {
+        email: currentUser.email,
+        budgetName: budgetData.name,
+        amount: budgetData.amount,
+        deadline: budgetData.endDate,
+      });
+  
       Swal.fire({
         title: "Success!",
-        text: "Budget added successfully.",
+        text: "Budget added successfully. A confirmation email has been sent!",
         icon: "success",
       });
-
+  
       reset();
       navigate("/");
     } catch (err) {
@@ -54,6 +66,7 @@ const CreateNewBudget = () => {
       console.error("Failed to create budget:", err);
     }
   };
+  
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen px-4">
