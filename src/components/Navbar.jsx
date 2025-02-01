@@ -113,7 +113,7 @@ const Navbar = () => {
       {/* Blurry Overlay Background */}
       {isMenuOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-40 backdrop-blur-md z-40"
+          className="fixed inset-0 bg-transparent bg-opacity-40 backdrop-blur-md z-40"
           onClick={() => setIsMenuOpen(false)} // Close menu when clicking outside
         ></div>
       )}
