@@ -32,6 +32,7 @@ const CreateNewBudget = () => {
       const budgetData = {
         ...data,
         userId: currentUser.uid,
+        userEmail: currentUser.email,
         createdAt: new Date().toISOString(),
       };
 

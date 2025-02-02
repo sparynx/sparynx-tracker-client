@@ -101,7 +101,7 @@ const Home = () => {
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-center mb-6">
         <div className="text-center md:text-left">
-          <h1 className="text-2xl md:text-3xl font-semibold text-gray-800">
+          <h1 className="text-2xl md:text-3xl font-semibold text-gray-800 mt-3">
             {getGreeting()}, {getUserName()}!
           </h1>
           <p className="text-sm md:text-lg text-gray-600 mt-2 md:mt-4">
