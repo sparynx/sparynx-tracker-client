@@ -22,11 +22,12 @@ const budgetsApi = createApi({
             query: (id) => `/budget/${id}`,
             providesTags: (result, error, id) => [{type: "Budgets", id}]
         }),
+
         addBudget: builder.mutation({
-            query: ({ name, description, amount, category, startDate, endDate, userId }) => ({
+            query: ({ name, description, amount, category, startDate, userEmail, endDate, userId }) => ({
                 url: "/create-budget",
                 method: "POST",
-                body: { name, description, amount, category, startDate, endDate, userId },
+                body: { name, description, amount, category, startDate, endDate, userEmail , userId },
                 headers: {
                     "Content-Type": "application/json",
                 },
