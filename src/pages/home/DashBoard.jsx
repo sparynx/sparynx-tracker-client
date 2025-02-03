@@ -56,14 +56,20 @@ const DashBoard = () => {
   }, [isLoading, userBudgets]);
 
   // Handle Budget Completion (Deletes Budget)
-  const handleComplete = async (id) => {
+  const handleComplete = async (id, userId) => {
     try {
-      await deleteBudget(id);
-      gsap.to(`#budget-${id}`, { opacity: 0, y: -10, duration: 0.5, ease: "power3.out", onComplete: () => refetch() });
+      const response = await deleteBudget({ id, userId }).unwrap();
+  
+      if (response?.message === "Budget deleted successfully.") {
+        gsap.to(`#budget-${id}`, { opacity: 0, y: -10, duration: 0.5, ease: "power3.out", onComplete: () => refetch() });
+      } else {
+        console.error("❌ Failed to delete budget:", response);
+      }
     } catch (error) {
-      console.error("Error completing budget:", error);
+      console.error("❌ Error completing budget:", error);
     }
   };
+  
 
   if (isLoading) return <Loader />;
   if (error) return <div className="text-red-500 text-center">Error: {error.message}</div>;
@@ -101,11 +107,12 @@ const DashBoard = () => {
                     </div>
                     {/* Mark as Completed Button */}
                     <button
-                      onClick={() => handleComplete(budget._id)}
+                      onClick={() => handleComplete(budget._id, currentUser.uid)}
                       className="flex items-center gap-2 bg-green-500 text-white px-3 py-2 rounded-md shadow-md hover:bg-green-600 transition"
                     >
                       <FiCheckCircle size={18} /> Completed
                     </button>
+
                   </div>
                 ))}
             </div>
