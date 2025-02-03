@@ -58,14 +58,12 @@ const DashBoard = () => {
   // Handle Budget Completion (Deletes Budget)
   const handleComplete = async (id) => {
     try {
-        await deleteBudget({ id, userId: currentUser.uid }).unwrap();
-        gsap.to(`#budget-${id}`, { opacity: 0, y: -10, duration: 0.5, ease: "power3.out", onComplete: () => refetch() });
+      await deleteBudget(id);
+      gsap.to(`#budget-${id}`, { opacity: 0, y: -10, duration: 0.5, ease: "power3.out", onComplete: () => refetch() });
     } catch (error) {
-        console.error("❌ Error deleting budget:", error);
+      console.error("Error completing budget:", error);
     }
-};
-
-  
+  };
 
   if (isLoading) return <Loader />;
   if (error) return <div className="text-red-500 text-center">Error: {error.message}</div>;
@@ -102,14 +100,12 @@ const DashBoard = () => {
                       <p className="text-sm text-gray-500">Created on {new Date(budget.createdAt).toLocaleDateString()}</p>
                     </div>
                     {/* Mark as Completed Button */}
-                        <button
-                          onClick={() => handleComplete(budget._id)}
-                          className="flex items-center gap-2 bg-green-500 text-white px-3 py-2 rounded-md shadow-md hover:bg-green-600 transition"
-                      >
-                          <FiCheckCircle size={18} /> Completed
-                      </button>
-
-
+                    <button
+                      onClick={() => handleComplete(budget._id)}
+                      className="flex items-center gap-2 bg-green-500 text-white px-3 py-2 rounded-md shadow-md hover:bg-green-600 transition"
+                    >
+                      <FiCheckCircle size={18} /> Completed
+                    </button>
                   </div>
                 ))}
             </div>

@@ -50,19 +50,14 @@ const budgetsApi = createApi({
             invalidatesTags: ["Budgets"]
        }),
        deleteBudget: builder.mutation({
-        query: ({ id, userId }) => ({
-            url: `/delete-budget/${id}?userId=${userId}`, // Send userId as a query param
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        }),
-        invalidatesTags: ["Budgets"], // Ensures UI updates after deletion
-    }),
-    
-    
+            query: (id) => ({
+                url: `/delete-budget/${id}`,
+                method: "DELETE",
+            }),
+            invalidatesTags: ["Budgets"]
        })
     })
+})
 
 
 
