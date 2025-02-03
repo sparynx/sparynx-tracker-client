@@ -51,15 +51,15 @@ const budgetsApi = createApi({
        }),
        deleteBudget: builder.mutation({
         query: ({ id, userId }) => ({
-            url: `/delete-budget/${id}`,
+            url: `/delete-budget/${id}?userId=${userId}`, // Send userId as a query param
             method: "DELETE",
-            body: { userId }, // Send userId in request body
             headers: {
                 "Content-Type": "application/json",
             },
         }),
         invalidatesTags: ["Budgets"], // Ensures UI updates after deletion
     }),
+    
     
        })
     })
